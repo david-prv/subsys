@@ -2,6 +2,8 @@
  * Declarations
  */
 
+require('dotenv').config();
+
 const crypto = require('crypto');
 const helmet = require('helmet');
 const express = require('express');
