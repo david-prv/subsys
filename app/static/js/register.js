@@ -4,6 +4,13 @@ $(document).ready(function(){
 });
 
 /**
+ * Function that shows the error message
+ */
+function showErrorAlert() {
+    $('#register-form').html("Registration has failed.");
+}
+
+/**
  * Validate Form, catch CSRF,
  * submit identification request safely.
  * 
@@ -32,12 +39,14 @@ function submitRegister(e) {
             'alias': $('#alias-name').val(),
             'secret': $('#secret').val()
         },
-        success: function(res) {
-            console.log(res);
-        },
-        error: function (jqXHR, textStatus, errorThrown)
+        success: function(res)
         {
-            console.error(textStatus);
+            window.sessionStorage.setItem('sub_id', res);
+            window.location.href = "/welcome";
+        },
+        error: function()
+        {
+            showErrorAlert();
         }
     });
 }
