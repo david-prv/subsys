@@ -32,7 +32,7 @@ app.use(cookieParser())
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use('/', routes);
-app.use('/static', express.static(__dirname + '/static'));
+app.use('/static', express.static(__dirname + '/app/static'));
 app.locals._nonce = nonce;
 
 /**
