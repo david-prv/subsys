@@ -3,6 +3,21 @@ $(document).ready(function(){
 });
 
 /**
+ * Function that shows the error message
+ */
+function showErrorAlert() {
+    $('#submit-form').html("Submission has failed.");
+}
+
+/**
+ * Function that shows the error message
+ */
+function showSuccessAlert() {
+    $('#submit-form').html("You have successfully submitted a flag!");
+}
+
+
+/**
  * Validate Form, catch CSRF,
  * submit FLAG safely.
  * 
@@ -31,11 +46,11 @@ function submitFlag(e) {
             'flag': $('#flag').val()
         },
         success: function(res) {
-            console.log(res);
+            showSuccessAlert();
         },
-        error: function (jqXHR, textStatus, errorThrown)
+        error: function ()
         {
-            console.error(textStatus);
+            showErrorAlert();
         }
     });
 }
