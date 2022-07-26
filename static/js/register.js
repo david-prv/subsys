@@ -1,3 +1,15 @@
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+    $('#submit').click(submitRegister);
+});
+
+/**
+ * Validate Form, catch CSRF,
+ * submit identification request safely.
+ * 
+ * @param {*} e 
+ * @returns 
+ */
 function submitRegister(e) {
     e.preventDefault();
     e.stopPropagation();
@@ -8,7 +20,24 @@ function submitRegister(e) {
         return;
     }
 
-    $.post('/register', {email: $('#email').val(), alias: $('#alias-name').val(), secret: $('#secret').val()}, function(res) {
-        console.log(res);
+    let csrf = $('input[name="_csrf"]')[0].value;
+    $.ajax({
+        url: '/register',
+        type: 'POST',
+        headers: {
+            'CSRF-Token': csrf
+        },
+        data: {
+            'email': $('#email').val(),
+            'alias': $('#alias-name').val(),
+            'secret': $('#secret').val()
+        },
+        success: function(res) {
+            console.log(res);
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            console.error(textStatus);
+        }
     });
 }
