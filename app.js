@@ -16,6 +16,7 @@ var routes = require('./app/routes');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.use('/', routes);
+app.use('/static', express.static(__dirname + '/static'));
 
 /**
  * Run App
