@@ -1,5 +1,8 @@
 $(document).ready(function(){  
     $('#submit').click(submitFlag);
+    $('#history').click(() => {
+        window.location.href = "/history";
+    });
 });
 
 /**
@@ -46,6 +49,11 @@ function submitFlag(e) {
             'flag': $('#flag').val()
         },
         success: function(res) {
+            if(res !== "ok") {
+                window.sessionStorage.setItem("gift_code", res);
+                window.location.href = "/receive-gift";
+                return;
+            }
             showSuccessAlert();
         },
         error: function ()

@@ -15,7 +15,7 @@
     <title>Flag Submission</title>
   </head>
   <body>
-    <div class="container mt-2">
+    <div class="container mt-5">
       <header>
         <h2>Flag Submission</h2>
       </header>
@@ -32,7 +32,10 @@
             <label for="flag">Flag</label>
             <input required type="text" class="form-control" id="flag" placeholder="FLAG{the_flag_you_want_to_submit}">
           </div>
-          <button name="btnSubmit" id="submit" type="submit" class="btn btn-primary">Submit Flag</button>
+          <div class="form-group">
+            <button name="btnSubmit" id="submit" type="submit" class="btn btn-primary">Submit Flag</button>
+            <button name="btnHistory" id="history" type="button" class="btn btn-secondary">Submission History</button>
+          </div>
         </form>
       </main>
     </div>

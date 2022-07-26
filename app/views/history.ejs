@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script
+      nonce="<%= nonce %>"
+      src="https://code.jquery.com/jquery-3.6.0.min.js"
+      integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+      crossorigin="anonymous"
+    ></script>
+    <script nonce="<%= nonce %>" src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script nonce="<%= nonce %>" src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script nonce="<%= nonce %>" src="/static/js/history.js"></script>
+    <title>History</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+        <header>
+            <h2>Submission History</h2>
+        </header>
+      <main>
+        <table class="table border">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">Timestamp</th>
+                    <th scope="col">Sub ID</th>
+                    <th scope="col">Flag Hash</th>
+                </tr>
+            </thead>
+            <tbody>
+            <% for (var i = 0; i < data.length; i++) { %>
+             <tr>
+               <td><%= data[i].timestamp %></td>
+               <td><%= data[i].member_id %></td>
+               <td><%= data[i].flag_hash %></td>
+             </tr>    
+            <% } %>
+            </tbody>
+         </table>
+      </main>
+    </div>
+  </body>
+</html>

@@ -3,8 +3,33 @@ const crypto = require('crypto');
 require('dotenv').config();
 
 module.exports = {
-    checkForGift: async(req, res) => {
-        res.send("ok");
+    /**
+     * Check if user has found all flags,
+     * reveal gift code to front-end.
+     * 
+     * @param {*} req 
+     * @param {*} res 
+     */
+    checkForGift: async (req, res) => {
+        let sql = new SQL(process.env.SQL_HOST, process.env.SQL_USER, process.env.SQL_PASS, process.env.SQL_DATABASE);
+        sql.connect();
+
+        let id = sql.serialize(req.body.id);
+
+        sql.exec(`SELECT score, secret, alias FROM members WHERE submission_id = '${id}';`, function(err, rows) {
+            sql.disconnect();
+            if(err) {
+                res.status(500).send("error: could not increase score");
+            } else {
+                let score = rows[0].score;
+                if(parseInt(score) === parseInt(process.env.GIFT_SCORE_TO_WIN)) {
+                    let code = crypto.createHash("sha1").update(`${process.env.GIFT_CODE}|${rows[0].secret}|${rows[0].alias}`).digest('hex');
+                    res.send(code);
+                } else {
+                    res.send("ok");
+                }
+            }
+        });
     },
     /**
      * Credit Flag subroutine. Checks if user was valid,
@@ -57,7 +82,7 @@ module.exports = {
         let id = sql.serialize(req.body.id);
         let flag = crypto.createHash('sha1').update(req.body.flag).digest('hex');
 
-        await sql.exec(`SELECT * FROM flags WHERE flag_hash = '${flag}'`, function(err, rows) {
+        sql.exec(`SELECT * FROM flags WHERE flag_hash = '${flag}'`, function(err, rows) {
             if(err || !rows || rows.length == 0) {
                 sql.disconnect();
                 res.status(500).send("error: flag was not found");
