@@ -42,7 +42,8 @@ class SQL {
     }
 
     /**
-     * 
+     * Serialize string
+     *
      * @param {string} string 
      * @returns
      */
@@ -52,7 +53,8 @@ class SQL {
     }
 
     /**
-     * 
+     * Execute query
+     *
      * @param {string} query 
      * @param {function} callback 
      * @returns 
