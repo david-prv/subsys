@@ -25,16 +25,16 @@ router.route('/register').get(csrfProtection, function(req, res) {
     res.render(dir + '/register', {nonce: res.app.locals._nonce, csrf: req.csrfToken()});
 });
 
+router.route('/welcome').get(csrfProtection, function(req, res) {
+    res.render(dir + '/welcome', {nonce: res.app.locals._nonce, csrf: req.csrfToken()});
+});
+
 /**
  * Workflow
  */
 
-router.route('/flag').post(parseForm, csrfProtection, function(req, res) {
-    submissionController.submitFlag(req, res);
-});
+router.route('/flag').post(parseForm, csrfProtection, submissionController.submitFlag, submissionController.creditFlag, submissionController.checkForGift);
 
-router.route('/register').post(parseForm, csrfProtection, function(req, res) {
-    identificationController.registerId(req, res);
-});
+router.route('/register').post(parseForm, csrfProtection, identificationController.registerId);
 
 module.exports = router;
